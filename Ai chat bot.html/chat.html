@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRINCE2.O AI ASSISTANT</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&" />
+    <link rel="icon" href="https://img.freepik.com/premium-vector/gemini-logo-icon_1273375-845.jpg" type="image/x-icon">
+        
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Hind:wght@400;600;700&family=Oleo+Script:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+
+:root {
+    --text-color: #edf3ff;
+    --subheading-color: #97a7ca;
+    --placeholder-color: #c3cdde;
+    --primary-color: #101623;
+    --secondary-color: #283045;
+    --secondary-hover-color: #333e58;
+    --scrollbar-color: #626a7f;
+}
+body.light-theme{
+    --text-color: #090c13;
+    --subheading-color: #7b8cae;
+    --placeholder-color: #606982;
+    --primary-color: #f3f7ff;
+    --secondary-color: #dce6f9;
+    --secondary-hover-color: #d2ddf2;
+    --scrollbar-color: #a2aac2;
+    
+}
+
+body {
+    color: var(--text-color);
+    background: var(--primary-color);
+}
+
+.container {
+    overflow-y: auto;
+    padding: 32px 0 60px;
+    max-height: calc(100vh - 127px);
+    scrollbar-color: var(--scrollbar-color) transparent;
+}
+
+.container :where(.app-header, .suggestion, .message, .prompt-Wrapper, .disclaimer-text) {
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px;
+    max-width: 980px;
+}
+
+.container .app-header {
+    margin-top: 4vh;
+}
+:root {
+    --gradient-start: #4796E3; /* Light Blue */
+    --gradient-middle: #9177C7; /* Purple */
+    --gradient-end: #CA6673; /* Pink */
+    --glow-color: rgba(255, 255, 255, 0.1); /* Very subtle White Glow */
+}
+
+.app-header .heading{
+    font-size: 3rem;
+    width: fit-content;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+
+    /* Softer text glow */
+    text-shadow: 5px 7px 10px var(--glow-color), 5px 7px 10px var(--glow-color);
+    animation: subtle-glow 4s ease-in-out infinite;
+}
+.app-header .sub-heading {
+    font-size: 3rem;
+    width: fit-content;
+    background: linear-gradient(to left, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+
+    /* Softer text glow */
+    text-shadow: 5px 7px 10px var(--glow-color), 5px 7px 10px var(--glow-color);
+    animation: subtle-glow 4s ease-in-out infinite;
+}
+
+/* Keyframes for gentle glow */
+@keyframes subtle-glow {
+    0% {
+        text-shadow: 0 0 1px var(--glow-color), 0 0 2px var(--glow-color);
+    }
+    50% {
+        text-shadow: 0 0 2px var(--glow-color), 0 0 3px var(--glow-color);
+    }
+    100% {
+        text-shadow: 0 0 1px var(--glow-color), 0 0 2px var(--glow-color);
+    }
+}
+
+/* Chats container */
+.container .chats-container {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.chats-container .message {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+}
+
+.avatar {
+    height: 37px;
+    width: 37px;
+    border-radius: 50%;
+    padding: 6px;
+    align-self: flex-start;
+    margin-right: -7px;
+    flex-shrink: 0;
+    background: var(--secondary-color);
+    border: 1px solid var(--secondary-hover-color);
+}
+
+.bot-message {
+    margin: 5px auto;
+}
+
+.chats-container .message .message-text {
+    padding: 3px 16px;
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+
+.chats-container .user-message {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chats-container .user-message .message-text {
+    padding: 12px 16px;
+    max-width: 75%;
+    border-radius: 13px 13px 3px 13px;
+    background: var(--secondary-color);
+}
+
+.loading .avatar {
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Prompt container stylings */
+.prompt-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 0;
+    background: var(--primary-color);
+}
+
+.prompt-container :where(.prompt-Wrapper, .prompt-from, .prompt-action) {
+    display: flex;
+    gap: 12px;
+    height: 56px;
+    align-items: center;
+}
+
+.prompt-Wrapper .prompt-from {
+    width: 100%;
+    height: 100%;
+    border-radius: 130px;
+    background: var(--secondary-color);
+}
+
+.prompt-from .prompt-input {
+    height: 100%;
+    width: 100%;
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    padding-left: 24px;
+    color: var(--text-color);
+}
+
+.prompt-from .prompt-input::placeholder {
+    color: var(--placeholder-color);
+}
+
+.prompt-Wrapper button {
+    width: 56px;
+    height: 100%;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    color: var(--text-color);
+    background: var(--secondary-color);
+    transition: 0.3s ease;
+}
+
+.prompt-Wrapper button:hover {
+    background: var(--secondary-hover-color);
+}
+
+.prompt-from .prompt-action {
+    gap: 5px;
+    margin-right: 7px;
+}
+
+.prompt-Wrapper .prompt-from :where(.file-upload-wrapper, button, img) {
+    position: relative;
+    height: 45px;
+    width: 45px;
+}
+
+.prompt-from #send-prompt-btn {
+    color: #fff;
+    display: none;
+    background: #1d7efd;
+}
+
+.prompt-from .prompt-input:valid ~ .prompt-action #send-prompt-btn {
+    display: block;
+}
+
+.prompt-from #send-prompt-btn:hover {
+    background: #0264e3;
+}
+
+
+
+.prompt-container .disclaimer-text {
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 16px 20px 0;
+    color: var(--placeholder-color);
+}
+
+.prompt-from #btn{
+    color: #fff;
+    background: #1d7efd;
+}
+
+</style>
+<body>
+    <div class="container">
+
+        <!-- App Header -->
+        <header class="app-header" id="appHeader">
+            <h1 class="heading">Hello, Me Prince 2.O</h1>
+            <h2 class="sub-heading">how can I help you?</h2>
+        </header>
+        
+
+        
+        <!-- Chats Container -->
+        <div class="chats-container" id="chatsContainer"></div>
+        
+        <!-- Prompt Container -->
+        <div class="prompt-container">
+            <div class="prompt-Wrapper">
+                <form action="#" class="prompt-from">
+                    <input type="text" placeholder="Ask Prince 2.O..." class="prompt-input" id="promptInput" required>
+                    <div class="prompt-action">
+                        <button type="button" id="send-prompt-btn" class="material-symbols-outlined">arrow_upward</button>
+                        <button id="btn" class="material-symbols-outlined">mic</button>
+                        <p id="result"></p>
+                    </div>
+                </form>
+                <button id="theme-toggle-btn" class="material-symbols-outlined">light_mode</button>
+                <button id="delete-chats-btn" class="material-symbols-outlined">delete</button>
+            </div>
+            <p class="disclaimer-text">Prince 2.O can make mistakes, so double-check</p>
+        </div>
+    </div>
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const API_KEY = "AIzaSyDgizW1CL0Q3HxeyPccMerl7cTy54gdUAA"; // API Key
+    const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"; // API URL
+
+    const sendButton = document.getElementById("send-prompt-btn");
+    const promptInput = document.getElementById("promptInput");
+    const chatsContainer = document.getElementById("chatsContainer");
+    const themeToggleBtn = document.getElementById("theme-toggle-btn");
+    const deleteChatsBtn = document.getElementById("delete-chats-btn");
+    const micButton = document.getElementById('btn'); // Updated id to 'btn'
+       
+        // Check if browser supports Web Speech API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US'; // Set language
+            recognition.continuous = false;
+
+            micButton.addEventListener('click', () => {
+                recognition.start();
+            });
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                promptInput.value = transcript;
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Error occurred:', event.error);
+            };
+        } else {
+            alert('Your browser does not support Speech Recognition.');
+        }
+    // Function to create a new message in the chat window
+    const addMessage = (messageClass, messageText, isBot = false) => {
+        const messageContainer = document.createElement("div");
+        messageContainer.classList.add("message", messageClass);
+
+        if (isBot) {
+            const botAvatar = document.createElement("img");
+            botAvatar.src = "https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png";
+            botAvatar.alt = "Bot Avatar";
+            botAvatar.classList.add("avatar");
+            messageContainer.appendChild(botAvatar);
+        }
+
+        const messageContent = document.createElement("p");
+        messageContent.classList.add("message-text");
+        messageContent.textContent = messageText;
+
+        messageContainer.appendChild(messageContent);
+        chatsContainer.appendChild(messageContainer);
+
+        // Auto-scroll to the latest message
+        messageContainer.scrollIntoView();
+    };
+
+    // Function to handle form submission
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        userMessage = promptInput.value.trim();
+
+        if (userMessage) {
+            // Add the user's message to the chat
+            addMessage("user-message", userMessage);
+
+            // Clear the input field
+            promptInput.value = "";
+             // Make the mic button visible again
+        micButton.style.visibility = 'visible'; // Or use 'style.display = "";' if you prefer
+            // Simulate a bot response with an API call
+            setTimeout(() => {
+                const botMsgDiv = document.createElement("div");
+                botMsgDiv.classList.add("message", "bot-message", "loading");
+                botMsgDiv.innerHTML = `
+                    <img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/gemini-color.png" class="avatar" alt="Bot Avatar">
+                    <p class="message-text">Just a moment...</p>`;
+                chatsContainer.appendChild(botMsgDiv);
+
+                // Fetch bot response using the API or predefined response
+                generateResponse(botMsgDiv);
+            }, 600);
+        }
+    };
+
+    // Function to fetch a response from Gemini API or return a predefined response
+    const generateResponse = async (botMsgDiv) => {
+        const textElement = botMsgDiv.querySelector(".message-text");
+
+        try {
+            // Predefined response for "Tum kon ho"
+            if (userMessage.toLowerCase() === "tum kon ho") {
+                const predefinedResponse = "Main Prince 2.0 AI Assistant hoon, jise Prince Mishra ne banaya hai!";
+                botMsgDiv.classList.remove("loading");
+                textElement.textContent = predefinedResponse;
+                return;
+            }
+
+            // Proceed with API call for other messages
+            const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [{ text: userMessage }], // Payload format
+                        },
+                    ],
+                }),
+            });
+
+            const data = await response.json();
+            console.log("API Response Data:", JSON.stringify(data, null, 2)); // Debugging full response
+
+            if (!response.ok) throw new Error(data.error?.message || "API Error");
+
+            // Parse the response text from the candidates array
+            const responseText =
+                data?.candidates?.[0]?.content?.parts?.[0]?.text?.replace(/google/gi, "Prince Mishra").trim() ||
+                "No valid response.";
+            botMsgDiv.classList.remove("loading");
+            textElement.textContent = responseText;
+
+        } catch (error) {
+            console.error("Error:", error);
+            textElement.textContent = "An error occurred while fetching the response.";
+            botMsgDiv.classList.remove("loading");
+        }
+    };
+
+    // Event listener for the send button
+    sendButton.addEventListener("click", handleFormSubmit);
+
+    // Event listener for Enter key on the input field
+    promptInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            handleFormSubmit(event);
+        }
+    });
+
+    // Clear all chat messages
+    deleteChatsBtn.addEventListener("click", () => {
+        chatsContainer.innerHTML = "";
+        console.log("Chats cleared successfully.");
+    });
+
+    // Toggle between light and dark themes
+    themeToggleBtn.addEventListener("click", () => {
+        const isLightTheme = document.body.classList.toggle("light-theme");
+        localStorage.setItem("themeColor", isLightTheme ? "light_mode" : "dark_mode");
+        themeToggleBtn.textContent = isLightTheme ? "dark_mode" : "light_mode";
+    });
+});
+   </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://img.freepik.com/premium-vector/gemini-logo-icon_1273375-845.jpg" type="image/x-icon">
+  <title>PRINCE2.O AI ASSISTANT</title>
+  <style>
+    /* Full-screen styling for the splash screen */
+    body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: black;
+    color: #ffffff;
+}
+
+#logo {
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(to right, #4796E3, #CA6673); /* Gradient Colors */
+    -webkit-background-clip: text; /* Clip gradient to text */
+    -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
+}
+
+#subtitle {
+    font-size: 1.5em;
+    margin-top: 15px;
+    text-align: center;
+    color: #ffffff;
+    opacity: 0;
+    animation: fadeInSubtitle 3s ease-out forwards;
+}
+
+@keyframes fadeInLogo {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInSubtitle {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    animation: moveCircles 6s ease-in-out infinite;
+}
+
+@keyframes moveCircles {
+    0% {
+        transform: scale(1) translate(-50%, -50%);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", serif;
+}
+
+:root {
+    --text-color: #edf3ff;
+    --subheading-color: #97a7ca;
+    --placeholder-color: #c3cdde;
+    --primary-color: #101623;
+    --secondary-color: #283045;
+    --secondary-hover-color: #333e58;
+    --scrollbar-color: #626a7f;
+}
+body.light-theme{
+    --text-color: #090c13;
+    --subheading-color: #7b8cae;
+    --placeholder-color: #606982;
+    --primary-color: #f3f7ff;
+    --secondary-color: #dce6f9;
+    --secondary-hover-color: #d2ddf2;
+    --scrollbar-color: #a2aac2;
+    
+}
+
+body {
+    color: var(--text-color);
+    background: var(--primary-color);
+}
+
+.container {
+    overflow-y: auto;
+    padding: 32px 0 60px;
+    max-height: calc(100vh - 127px);
+    scrollbar-color: var(--scrollbar-color) transparent;
+}
+
+.container :where(.app-header, .suggestion, .message, .prompt-Wrapper, .disclaimer-text) {
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px;
+    max-width: 980px;
+}
+
+.container .app-header {
+    margin-top: 4vh;
+}
+:root {
+    --gradient-start: #4796E3; /* Light Blue */
+    --gradient-middle: #9177C7; /* Purple */
+    --gradient-end: #CA6673; /* Pink */
+    --glow-color: rgba(255, 255, 255, 0.1); /* Very subtle White Glow */
+}
+
+.app-header .heading,
+.app-header .sub-heading {
+    font-size: 3rem;
+    width: fit-content;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+
+    /* Softer text glow */
+    text-shadow: 5px 7px 10px var(--glow-color), 5px 7px 10px var(--glow-color);
+    animation: subtle-glow 4s ease-in-out infinite;
+}
+
+/* Keyframes for gentle glow */
+@keyframes subtle-glow {
+    0% {
+        text-shadow: 0 0 1px var(--glow-color), 0 0 2px var(--glow-color);
+    }
+    50% {
+        text-shadow: 0 0 2px var(--glow-color), 0 0 3px var(--glow-color);
+    }
+    100% {
+        text-shadow: 0 0 1px var(--glow-color), 0 0 2px var(--glow-color);
+    }
+}
+
+/* Chats container */
+.container .chats-container {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.chats-container .message {
+    display: flex;
+    gap: 11px;
+    align-items: center;
+}
+
+.avatar {
+    height: 37px;
+    width: 37px;
+    border-radius: 50%;
+    padding: 6px;
+    align-self: flex-start;
+    margin-right: -7px;
+    flex-shrink: 0;
+    background: var(--secondary-color);
+    border: 1px solid var(--secondary-hover-color);
+}
+
+.bot-message {
+    margin: 5px auto;
+}
+
+.chats-container .message .message-text {
+    padding: 3px 16px;
+    word-wrap: break-word;
+    white-space: pre-line;
+}
+
+.chats-container .user-message {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chats-container .user-message .message-text {
+    padding: 12px 16px;
+    max-width: 75%;
+    border-radius: 13px 13px 3px 13px;
+    background: var(--secondary-color);
+}
+
+.loading .avatar {
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Prompt container stylings */
+.prompt-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 0;
+    background: var(--primary-color);
+}
+
+.prompt-container :where(.prompt-Wrapper, .prompt-from, .prompt-action) {
+    display: flex;
+    gap: 12px;
+    height: 56px;
+    align-items: center;
+}
+
+.prompt-Wrapper .prompt-from {
+    width: 100%;
+    height: 100%;
+    border-radius: 130px;
+    background: var(--secondary-color);
+}
+
+.prompt-from .prompt-input {
+    height: 100%;
+    width: 100%;
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    padding-left: 24px;
+    color: var(--text-color);
+}
+
+.prompt-from .prompt-input::placeholder {
+    color: var(--placeholder-color);
+}
+
+.prompt-Wrapper button {
+    width: 56px;
+    height: 100%;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    color: var(--text-color);
+    background: var(--secondary-color);
+    transition: 0.3s ease;
+}
+
+.prompt-Wrapper button:hover {
+    background: var(--secondary-hover-color);
+}
+
+.prompt-from .prompt-action {
+    gap: 5px;
+    margin-right: 7px;
+}
+
+.prompt-Wrapper .prompt-from :where(.file-upload-wrapper, button, img) {
+    position: relative;
+    height: 45px;
+    width: 45px;
+}
+
+.prompt-from #send-prompt-btn {
+    color: #fff;
+    display: none;
+    background: #1d7efd;
+}
+
+.prompt-from .prompt-input:valid ~ .prompt-action #send-prompt-btn {
+    display: block;
+}
+
+.prompt-from #send-prompt-btn:hover {
+    background: #0264e3;
+}
+
+
+
+.prompt-container .disclaimer-text {
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 16px 20px 0;
+    color: var(--placeholder-color);
+}
+
+.prompt-from #btn{
+    color: #fff;
+    background: #1d7efd;
+}
+.login-circle {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Positioned in the top-right corner */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Make it a perfect circle */
+    display: flex; /* Flexbox to align content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    border: 2px solid #4796E3; /* Add a border matching your theme */
+    background-color: #ffffff; /* Optional: Add a background for better visibility */
+    cursor: pointer;
+}
+
+.login-circle span {
+    font-size: 24px; /* Adjust size of the icon */
+    color: #4796E3; /* Match the theme color */
+}
+
+.login-circle.hidden {
+    display: none; /* Hide the circle when logged out */
+}
+/* Default style for logout circle */
+.login-circle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid var(--text-color); /* Dynamic border color */
+    background-color: var(--primary-color); /* Dynamic background color */
+}
+
+
+
+  </style>
+</head>
+<body>
+  <!-- Splash screen content -->
+  <div id="logo">PRINCE2.O</div>
+  <div id="subtitle">YOUR ADVANCED AI ASSISTANT</div>
+
+  <!-- Background animated circles -->
+  <div class="circle" style="width: 80px; height: 80px; top: 15%; left: 25%;"></div>
+  <div class="circle" style="width: 100px; height: 100px; top: 35%; left: 55%;"></div>
+  <div class="circle" style="width: 120px; height: 120px; top: 65%; left: 15%;"></div>
+  <div class="circle" style="width: 90px; height: 90px; top: 45%; left: 75%;"></div>
+  <div class="circle" style="width: 110px; height: 110px; top: 10%; left: 60%;"></div>
+
+  <script>
+    //Automatically redirect after splash screen delay
+    setTimeout(() => {
+      window.location.href = "http://127.0.0.1:5500/Ai%20chat%20bot.html/chat.html"; // Replace with your login page URL
+    }, 3000); // 3 seconds delay for splash screen
+  </script>
+</body>
+</html>
